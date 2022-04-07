@@ -1,11 +1,36 @@
 {
-  "name": "bug-catcher",
-  "private": true,
+  "name": "react-bug-catcher",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "react/jsx-uses-react": 0,
+      "react/prop-types": 0,
+      "react/react-in-jsx-scope": 0
+    }
   },
   "dependencies": {
     "js-cookie": "^3.0.1",
@@ -16,6 +41,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",
+    "eslint": "^8.12.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "vite": "^2.8.0"
   }
 }
