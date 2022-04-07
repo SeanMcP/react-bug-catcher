@@ -1,0 +1,159 @@
+{
+  "10": {
+    "name": "Caterpie",
+    "type": [
+      "bug"
+    ],
+    "image": "10_caterpie.png",
+    "rarity": 1,
+    "previous": [],
+    "next": [
+      11,
+      12
+    ]
+  },
+  "11": {
+    "name": "Metapod",
+    "type": [
+      "bug"
+    ],
+    "image": "11_metapod.png",
+    "rarity": 2,
+    "previous": [
+      10
+    ],
+    "next": [
+      12
+    ]
+  },
+  "12": {
+    "name": "Butterfree",
+    "type": [
+      "bug",
+      "flying"
+    ],
+    "image": "12_butterfree.png",
+    "rarity": 3,
+    "previous": [
+      10,
+      11
+    ],
+    "next": []
+  },
+  "13": {
+    "name": "Weedle",
+    "type": [
+      "bug",
+      "poison"
+    ],
+    "image": "13_weedle.png",
+    "rarity": 1,
+    "previous": [],
+    "next": [
+      14,
+      15
+    ]
+  },
+  "14": {
+    "name": "Kakuna",
+    "type": [
+      "bug",
+      "poison"
+    ],
+    "image": "14_kakuna.png",
+    "rarity": 2,
+    "previous": [
+      13
+    ],
+    "next": [
+      15
+    ]
+  },
+  "15": {
+    "name": "Beedrill",
+    "type": [
+      "bug",
+      "poison"
+    ],
+    "image": "15_beedrill.png",
+    "rarity": 3,
+    "previous": [
+      13,
+      14
+    ],
+    "next": []
+  },
+  "46": {
+    "name": "Paras",
+    "type": [
+      "bug",
+      "grass"
+    ],
+    "image": "46_paras.png",
+    "rarity": 2,
+    "previous": [],
+    "next": [
+      47
+    ]
+  },
+  "47": {
+    "name": "Parasect",
+    "type": [
+      "bug",
+      "grass"
+    ],
+    "image": "47_parasect.png",
+    "rarity": 3,
+    "previous": [
+      46
+    ],
+    "next": []
+  },
+  "48": {
+    "name": "Venonat",
+    "type": [
+      "bug",
+      "poison"
+    ],
+    "image": "48_venonat.png",
+    "rarity": 2,
+    "previous": [],
+    "next": [
+      49
+    ]
+  },
+  "49": {
+    "name": "Venomoth",
+    "type": [
+      "bug",
+      "poison"
+    ],
+    "image": "49_venomoth.png",
+    "rarity": 3,
+    "previous": [
+      48
+    ],
+    "next": []
+  },
+  "123": {
+    "name": "Scyther",
+    "type": [
+      "bug",
+      "flying"
+    ],
+    "image": "123_scyther.png",
+    "rarity": 3,
+    "previous": [],
+    "next": []
+  },
+  "127": {
+    "name": "Pinsir",
+    "type": [
+      "bug"
+    ],
+    "image": "127_pinsir.png",
+    "rarity": 3,
+    "previous": [],
+    "next": []
+  }
+}

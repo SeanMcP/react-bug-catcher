@@ -1,0 +1,10 @@
+.App {
+  border: 2rem solid #e65964;
+  border-left-width: 0.5rem;
+  border-right-width: 0.5rem;
+  border-radius: 0.5rem;
+  font-family: "Noto Sans Mono";
+  margin: 2rem auto;
+  max-width: 390px;
+  height: 664px;
+}
