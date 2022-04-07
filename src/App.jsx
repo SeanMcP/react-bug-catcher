@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import "./App.css";
+import styled from "styled-components";
 
 const AllView = React.lazy(() => import("./AllView"));
 const ExploreView = React.lazy(() => import("./ExploreView"));
@@ -12,7 +12,7 @@ function Suspenseful({ children }) {
 
 function App() {
   return (
-    <div className="App">
+    <$Div className="App">
       <BrowserRouter>
         <Routes>
           <Route
@@ -45,8 +45,18 @@ function App() {
           <Link to="/explore">Explore</Link>
         </nav>
       </BrowserRouter>
-    </div>
+    </$Div>
   );
 }
+
+const $Div = styled.div`
+  border: 2rem solid #e65964;
+  border-left-width: 0.5rem;
+  border-right-width: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem auto;
+  max-width: 390px;
+  height: 664px;
+`;
 
 export default App;

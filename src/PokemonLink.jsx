@@ -4,22 +4,22 @@ import Pill from "./Pill";
 
 export function PokemonLink({ count, pokemon }) {
   return (
-    <S_Link to={`/pokemon/${pokemon.id}`}>
+    <$Link to={`/pokemon/${pokemon.id}`}>
       <img alt="" src={`/img/${pokemon.image}`} />
-      {count && count != 0 ? <S_Pill className="pill">{count}</S_Pill> : null}
+      {count && count != 0 ? <$Pill className="pill">{count}</$Pill> : null}
       <b>{pokemon.name}</b>
-    </S_Link>
+    </$Link>
   );
 }
 
-const S_Link = styled(Link)`
+const $Link = styled(Link)`
   display: inline-grid;
   position: relative;
   text-decoration: none;
   justify-content: center;
 `;
 
-const S_Pill = styled(Pill)`
+const $Pill = styled(Pill)`
   position: absolute;
   top: 0;
   right: 0;
