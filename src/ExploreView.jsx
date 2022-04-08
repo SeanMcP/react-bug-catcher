@@ -100,7 +100,7 @@ function useMessage() {
     ref.current = setTimeout(() => setMessage(), 4000);
   }
 
-  React.useEffect(() => clearTimeout(ref.current), []);
+  React.useEffect(() => clearTimeout(ref.current), [ref]);
 
   return [message, setVanishingMessage];
 }
@@ -116,7 +116,7 @@ function useCookie(name, initialValue = 20) {
     } else {
       setCookie(parseInt(value));
     }
-  }, [name]);
+  }, [initialValue, name]);
 
   function setAndPersistCookie(value) {
     jsCookie.set(name, value, { expires: getExpirationTime() });
