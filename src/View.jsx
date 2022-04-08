@@ -9,6 +9,7 @@ export default function View({ title, ...rest }) {
 }
 
 const Container = styled.div`
-  box-shadow: inset 0 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.1);
+  background-color: var(--screen-background);
+  box-shadow: inset 2px 2px 0 4px hsla(0, 0%, 0%, 10%);
   padding: 1rem;
 `;

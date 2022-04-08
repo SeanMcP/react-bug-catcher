@@ -7,56 +7,108 @@ const ExploreView = React.lazy(() => import("./ExploreView"));
 const PokemonView = React.lazy(() => import("./PokemonView"));
 
 function Suspenseful({ children }) {
-  return <React.Suspense fallback={<>Loading...</>}>{children}</React.Suspense>;
+  return (
+    <React.Suspense fallback={<$DivLoading>Loading...</$DivLoading>}>
+      {children}
+    </React.Suspense>
+  );
 }
 
 function App() {
   return (
-    <$Div className="App">
+    <$DivFrame className="App">
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspenseful>
-                <AllView />
-              </Suspenseful>
-            }
-          />
-          <Route
-            path="/explore"
-            element={
-              <Suspenseful>
-                <ExploreView />
-              </Suspenseful>
-            }
-          />
-          <Route
-            path="/pokemon/:id"
-            element={
-              <Suspenseful>
-                <PokemonView />
-              </Suspenseful>
-            }
-          />
-        </Routes>
-        <nav>
-          <Link to="/">Pokédex</Link>
-          <Link to="/explore">Explore</Link>
-        </nav>
+        <$DivWindow>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Suspenseful>
+                  <AllView />
+                </Suspenseful>
+              }
+            />
+            <Route
+              path="/explore"
+              element={
+                <Suspenseful>
+                  <ExploreView />
+                </Suspenseful>
+              }
+            />
+            <Route
+              path="/pokemon/:id"
+              element={
+                <Suspenseful>
+                  <PokemonView />
+                </Suspenseful>
+              }
+            />
+          </Routes>
+        </$DivWindow>
+        <$Nav>
+          <$Link to="/">Pokédex</$Link>
+          <$Link to="/explore">Explore</$Link>
+        </$Nav>
       </BrowserRouter>
-    </$Div>
+    </$DivFrame>
   );
 }
 
-const $Div = styled.div`
-  border: 2rem solid #e65964;
-  border-left-width: 0.5rem;
-  border-right-width: 0.5rem;
-  border-radius: 0.5rem;
+const $DivLoading = styled.div`
+  align-items: center;
+  background-color: var(--screen-background);
+  display: flex;
+  justify-content: center;
+`;
+
+const $DivFrame = styled.div`
+  --frame: #dc4443;
+  --frame-highlight: #e79b99;
+  --frame-lowlight: #aa3333;
+  --screen-background: #f8eded;
+
+  background-color: var(--frame);
+  border: 2px solid var(--frame-lowlight);
+  border-top-color: var(--frame-highlight);
+  border-left-color: var(--frame-highlight);
+  border-radius: 4px;
+  display: grid;
+  grid-template-rows: auto min-content;
+  height: 600px;
   margin: 2rem auto;
-  max-width: 390px;
-  height: 664px;
+  max-width: 400px;
+  padding: 1rem;
+`;
+
+const $DivWindow = styled.div`
+  background-color: white;
+  border: 2px solid var(--frame-highlight);
+  border-top-color: var(--frame-lowlight);
+  border-left-color: var(--frame-lowlight);
+  border-radius: 2px;
+  display: grid;
+`;
+
+const $Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+`;
+
+const $Link = styled(Link)`
+  border: 1px solid var(--frame-lowlight);
+  box-shadow: inset 1px 1px 0 var(--frame-highlight);
+  border-radius: 2px;
+  color: white;
+  padding: 0.5rem;
+  text-shadow: 0 2px 0 var(--frame-lowlight);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--frame-lowlight);
+    box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, 10%);
+  }
 `;
 
 export default App;
