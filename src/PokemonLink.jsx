@@ -1,22 +1,23 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Pill from "./Pill";
+import { Pill } from "./shared";
 
-export function PokemonLink({ count, pokemon }) {
+export function PokemonLink({ count, hideLabel, pokemon }) {
   return (
     <$Link to={`/pokemon/${pokemon.id}`}>
       <img alt="" src={`/img/${pokemon.image}`} />
       {count && count != 0 ? <$Pill className="pill">{count}</$Pill> : null}
-      <b>{pokemon.name}</b>
+      <b className={hideLabel ? "visually-hidden" : ""}>{pokemon.name}</b>
     </$Link>
   );
 }
 
 const $Link = styled(Link)`
-  display: inline-grid;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   position: relative;
   text-decoration: none;
-  justify-content: center;
 `;
 
 const $Pill = styled(Pill)`

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export default styled.span`
+export const Heading = styled.h1`
+  text-align: center;
+`;
+
+export const Pill = styled.span`
   background-color: whitesmoke;
   border-radius: 1rem;
   color: gray;

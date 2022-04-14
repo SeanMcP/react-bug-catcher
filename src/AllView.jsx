@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { getAll } from "./api";
+import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
 
@@ -16,6 +17,7 @@ export default function AllView() {
   }, []);
   return (
     <View title="Home">
+      <Heading>Pokédex</Heading>
       <$NavGrid>
         {all.map((pokemon) => (
           <PokemonLink
@@ -35,6 +37,7 @@ function getParty() {
 
 const $NavGrid = styled.nav`
   display: grid;
+  font-size: x-small;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   justify-content: center;
