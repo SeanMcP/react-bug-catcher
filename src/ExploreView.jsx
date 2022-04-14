@@ -3,11 +3,14 @@ import jsCookie from "js-cookie";
 import styled from "styled-components";
 import { useAllPokemon } from "./api";
 import View from "./View";
-import Pill from "./Pill";
+import { Pill } from "./shared";
 
 export default function ExploreView() {
   const [pokemon, setPokemon] = React.useState(null);
-  const [message, setMessage] = useMessage();
+  const [message, setMessage] = React.useState(
+    "You find a nice wooded spot to look for bugs."
+  );
+  const [mood, setMood] = React.useState(null);
   const { data: allPokemon } = useAllPokemon();
 
   const [berries, setBerries] = useCookie("berries");
@@ -15,10 +18,27 @@ export default function ExploreView() {
 
   function tossBerry() {
     setBerries(berries - 1);
-    if (Math.random() > 0.7) {
-      encounterPokemon();
+
+    if (pokemon) {
+      if (Math.random() > 0.25) {
+        setMood("happy");
+        setMessage(`The ${pokemon.name} is happily munching a berry.`);
+      } else {
+        setMood("angry");
+        setMessage(`Uh oh, that seemed to irritate the ${pokemon.name}!`);
+      }
     } else {
-      setMessage("No Pokemon appeared");
+      if (Math.random() > 0.5) {
+        encounterPokemon();
+      } else {
+        setMessage(
+          berries
+            ? `No Pokemon appeared. You have ${berries} berr${
+                berries === 1 ? "y" : "ies"
+              } left.`
+            : "Uh oh, you're all out of berries! Try coming back later."
+        );
+      }
     }
   }
 
@@ -32,28 +52,41 @@ export default function ExploreView() {
 
   function tossBall() {
     setBalls(balls - 1);
-    const rarityFactor = pokemon.rarity * 0.1;
-    if (Math.random() - rarityFactor > 0.25) {
-      setMessage("Success!");
+    const rarityFactor = pokemon.rarity * -0.1;
+    const moodFactor = getMoodFactor(mood);
+    if (Math.random() + rarityFactor + moodFactor > 0.1) {
+      setMessage(`Success! You caught a ${pokemon.name}.`);
       catchPokemon(pokemon.id);
-      setPokemon(null);
+      endEncounter();
     } else {
       setMessage("Oo, so close!");
-      if (Math.random() + rarityFactor > 0.75) {
-        setMessage("The Pokemon ran away");
-        setPokemon(null);
+      if (Math.random() + rarityFactor + moodFactor > 0.25) {
+        setMessage(
+          `The Pokemon ran away! ${
+            !mood ? "Try using a berry" : "Better luck"
+          } next time.`
+        );
+        endEncounter();
       }
     }
   }
 
+  function endEncounter() {
+    setPokemon(null);
+    setMood(null);
+  }
+
   return (
     <$View title="Explore">
-      {message && <$MessageBanner aria-live="polite">{message}</$MessageBanner>}
+      <$MessageBanner aria-live="polite">{message}</$MessageBanner>
       <$PokemonContainer>
         {pokemon && <img src={`/img/${pokemon.image}`} alt={pokemon.name} />}
       </$PokemonContainer>
       <$ButtonContainer>
-        <$Button disabled={berries === 0} onClick={tossBerry}>
+        <$Button
+          disabled={berries === 0 || mood === "happy"}
+          onClick={tossBerry}
+        >
           <img alt="Razz berry" src="/img/razz-berry.png" />
           <$Pill>{berries}</$Pill>
         </$Button>
@@ -83,26 +116,23 @@ function getExpirationTime() {
 function getRarity() {
   let rarity = 1;
   const random = Math.random();
-  if (random > 0.9) {
+  if (random > 0.83) {
     rarity = 3;
-  } else if (random > 0.6) {
+  } else if (random > 0.5) {
     rarity = 2;
   }
   return rarity;
 }
 
-function useMessage() {
-  const ref = React.createRef();
-  const [message, setMessage] = React.useState();
-
-  function setVanishingMessage(text) {
-    setMessage(text);
-    ref.current = setTimeout(() => setMessage(), 4000);
+function getMoodFactor(mood) {
+  switch (mood) {
+    case "happy":
+      return 0.3;
+    case "angry":
+      return -0.3;
+    default:
+      return 0;
   }
-
-  React.useEffect(() => clearTimeout(ref.current), [ref]);
-
-  return [message, setVanishingMessage];
 }
 
 function useCookie(name, initialValue = 20) {
@@ -146,13 +176,13 @@ const $View = styled(View)`
 
 const $MessageBanner = styled.div`
   background: white;
-  // border: 0.5rem solid black;
+  border: 3px solid black;
   box-shadow: 0.5rem 0.5rem 0 hsla(0, 0%, 0%, 0.1);
-  position: absolute;
-  padding: 0.5rem;
-  top: 1rem;
   left: 1rem;
+  padding: 0.5rem;
+  position: absolute;
   right: 1rem;
+  top: 1rem;
 `;
 
 const $PokemonContainer = styled.div`
@@ -162,6 +192,7 @@ const $PokemonContainer = styled.div`
   flex-grow: 1;
 
   img {
+    transform: translateY(40%);
     width: 144px;
   }
 `;
