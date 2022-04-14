@@ -1,0 +1,74 @@
+.animation-container {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.animation-container::before {
+    content: "";
+    height: 24px;
+    opacity: 0;
+    position: absolute;
+    width: 24px;
+}
+
+.animation-container[data-title="ball"]::before {
+    animation: ball-toss 1s ease-in-out, up-and-down 1s ease-in-out, hide 1s;
+    background-image: url('/img/net-ball.png');
+    right: 12px;
+    bottom: 0;
+}
+
+.animation-container[data-title="berry"]::before {
+    animation: berry-toss 1s ease-in-out, up-and-down 1s ease-in-out, hide 1s;
+    background-image: url('/img/razz-berry.png');
+    left: 12px;
+    bottom: 0;
+}
+
+@keyframes ball-toss {
+    from {
+        right: 12px;
+        bottom: 0;
+    }
+    to {
+        right: 50%;
+        bottom: 50%;
+    }
+}
+
+@keyframes berry-toss {
+    from {
+        left: 12;
+        bottom: 0;
+    }
+    to {
+        left: 50%;
+        bottom: 50%;
+    }
+}
+
+
+@keyframes up-and-down {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-300%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    99.9% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

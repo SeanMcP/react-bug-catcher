@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { useAllPokemon } from "./api";
 import View from "./View";
 import Pill from "./Pill";
+import "./animations.css";
 
 export default function ExploreView() {
   const [pokemon, setPokemon] = React.useState(null);
+  const [animation, setAnimation] = React.useState(null);
   const [message, setMessage] = useMessage();
   const { data: allPokemon } = useAllPokemon();
 
@@ -14,6 +16,7 @@ export default function ExploreView() {
   const [balls, setBalls] = useCookie("balls");
 
   function tossBerry() {
+    setAnimation("berry");
     setBerries(berries - 1);
     if (Math.random() > 0.7) {
       encounterPokemon();
@@ -31,6 +34,7 @@ export default function ExploreView() {
   }
 
   function tossBall() {
+    setAnimation("ball");
     setBalls(balls - 1);
     const rarityFactor = pokemon.rarity * 0.1;
     if (Math.random() - rarityFactor > 0.25) {
@@ -48,6 +52,7 @@ export default function ExploreView() {
 
   return (
     <$View title="Explore">
+      <div className="animation-container" data-title={animation} />
       {message && <$MessageBanner aria-live="polite">{message}</$MessageBanner>}
       <$PokemonContainer>
         {pokemon && <img src={`/img/${pokemon.image}`} alt={pokemon.name} />}
