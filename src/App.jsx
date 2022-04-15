@@ -51,6 +51,12 @@ function App() {
           <$Link to="/explore">Explore</$Link>
         </$Nav>
       </BrowserRouter>
+      <$ASource
+        href="https://github.com/seanmcp/react-bug-catcher"
+        target="_blank"
+      >
+        View source
+      </$ASource>
     </$DivFrame>
   );
 }
@@ -108,6 +114,20 @@ const $Link = styled(Link)`
   &:hover {
     background-color: var(--frame-lowlight);
     box-shadow: inset 1px 1px 0 hsla(0, 0%, 0%, 10%);
+  }
+`;
+
+const $ASource = styled.a`
+  bottom: 0.5rem;
+  color: hsl(0, 0%, 50%);
+  font-size: x-small;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+
+  &:not(:focus, :hover) {
+    text-decoration: none;
   }
 `;
 
