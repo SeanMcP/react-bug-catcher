@@ -4,10 +4,12 @@ import { getAll } from "./api";
 import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
+import { getFavorites, getParty } from "./local-storage";
 
 export default function AllView() {
   const [all, setAll] = React.useState([]);
   const party = getParty();
+  const favorites = getFavorites();
 
   React.useEffect(() => {
     async function _get() {
@@ -24,15 +26,12 @@ export default function AllView() {
             key={pokemon.id}
             pokemon={pokemon}
             count={party[pokemon.id] || 0}
+            isFavorite={favorites[pokemon.id]}
           />
         ))}
       </$NavGrid>
     </View>
   );
-}
-
-function getParty() {
-  return JSON.parse(localStorage.getItem("party") || "{}");
 }
 
 const $NavGrid = styled.nav`

@@ -2,12 +2,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Pill } from "./shared";
 
-export function PokemonLink({ count, hideLabel, pokemon }) {
+export function PokemonLink({ count, hideLabel, isFavorite, pokemon }) {
   return (
     <$Link to={`/pokemon/${pokemon.id}`}>
       <img alt="" src={`/img/${pokemon.image}`} />
       {count && count != 0 ? <$Pill className="pill">{count}</$Pill> : null}
-      <b className={hideLabel ? "visually-hidden" : ""}>{pokemon.name}</b>
+      <b className={hideLabel ? "visually-hidden" : ""}>
+        {pokemon.name}
+        {isFavorite ? "*" : ""}
+      </b>
     </$Link>
   );
 }
