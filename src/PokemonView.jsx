@@ -5,12 +5,13 @@ import { getPokemon } from "./api";
 import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
-import { getFavorites } from "./local-storage";
+import { getFavorites, notesStorage } from "./local-storage";
 
 export default function PokemonView() {
   const { id } = useParams();
   const [pokemon, setPokemon] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(false);
+  const [notes, setNotes] = React.useState("");
 
   React.useEffect(() => {
     async function getData() {
@@ -23,6 +24,10 @@ export default function PokemonView() {
 
   React.useEffect(() => {
     setIsFavorite(getFavorites()[id]);
+  }, [id]);
+
+  React.useEffect(() => {
+    setNotes(notesStorage.get()[id] || "");
   }, [id]);
 
   if (!pokemon) return <div>Loading...</div>;
@@ -38,6 +43,11 @@ export default function PokemonView() {
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
     setIsFavorite(favorites[id]);
+  }
+
+  function handleSave(event) {
+    event.preventDefault();
+    notesStorage.set({ [id]: notes });
   }
 
   return (
@@ -65,9 +75,9 @@ export default function PokemonView() {
         )}
       </$ImagesContainer>
       <p>
-        <$FavoriteButton onClick={toggleFavorite}>
+        <button onClick={toggleFavorite}>
           {isFavorite ? "Favorited!" : "Add to favorites"}
-        </$FavoriteButton>
+        </button>
       </p>
       <p>
         <b>Catch count</b>: {count || 0}
@@ -80,6 +90,19 @@ export default function PokemonView() {
           </$TypeSpan>
         ))}
       </p>
+      <$Form>
+        <label htmlFor="notes">
+          <b>Notes</b>
+        </label>
+        <$Textarea
+          id="notes"
+          defaultValue={notes}
+          maxLength={144}
+          onChange={(e) => setNotes(e.target.value)}
+        ></$Textarea>
+        <small style={{ justifySelf: "right" }}>{notes.length} / 144</small>
+        <button onClick={handleSave}>Save</button>
+      </$Form>
     </View>
   );
 }
@@ -88,12 +111,6 @@ const $Header = styled.header`
   align-items: center;
   display: flex;
   justify-content: center;
-`;
-
-const $FavoriteButton = styled.button`
-  background: transparent;
-  border: 1px solid black;
-  padding: 0.25rem;
 `;
 
 const $ImagesContainer = styled.div`
@@ -110,4 +127,15 @@ const $Img = styled.img`
 
 const $TypeSpan = styled.span`
   margin-right: 1ch;
+`;
+
+const $Form = styled.form`
+  display: grid;
+  gap: 0.5rem;
+`;
+
+const $Textarea = styled.textarea`
+  font-size: 0.75em;
+  height: 5ch;
+  line-height: 1.4;
 `;

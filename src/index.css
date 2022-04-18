@@ -25,10 +25,15 @@ code {
 
 button,
 input,
-select {
+select,
+textarea {
+  background: transparent;
+  border: 1px solid currentColor;
   font: inherit;
+  padding: 0.5em;
 }
 
 button {
   cursor: pointer;
+  padding: 0.25em 0.5em;
 }
