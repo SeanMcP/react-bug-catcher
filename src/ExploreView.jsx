@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useAllPokemon } from "./api";
 import View from "./View";
 import { Pill } from "./shared";
-import { favoritesStorage } from "./local-storage";
+import { countStorage, favoritesStorage } from "./local-storage";
 
 export default function ExploreView() {
   const [pokemon, setPokemon] = React.useState(null);
@@ -163,10 +163,10 @@ function useCookie(name, initialValue = 20) {
 }
 
 function catchPokemon(id) {
-  const party = JSON.parse(localStorage.getItem("party") || "{}");
-  if (!party[id]) party[id] = 0;
-  party[id]++;
-  localStorage.setItem("party", JSON.stringify(party));
+  const count = countStorage.get();
+  if (!count[id]) count[id] = 0;
+  count[id]++;
+  countStorage.set(count);
 }
 
 const $View = styled(View)`

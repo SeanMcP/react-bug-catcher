@@ -5,7 +5,7 @@ import { getPokemon } from "./api";
 import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
-import { favoritesStorage, notesStorage } from "./local-storage";
+import { countStorage, favoritesStorage, notesStorage } from "./local-storage";
 
 export default function PokemonView() {
   const { id } = useParams();
@@ -31,8 +31,7 @@ export default function PokemonView() {
   }, [id]);
 
   if (!pokemon) return <div>Loading...</div>;
-  const party = JSON.parse(localStorage.getItem("party") || "{}");
-  const count = party[pokemon.id];
+  const count = countStorage.get()[pokemon.id];
 
   function toggleFavorite() {
     const favorites = favoritesStorage.get();

@@ -4,12 +4,12 @@ import { getAll } from "./api";
 import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
-import { getFavorites, getParty } from "./local-storage";
+import { countStorage, favoritesStorage } from "./local-storage";
 
 export default function AllView() {
   const [all, setAll] = React.useState([]);
-  const party = getParty();
-  const favorites = getFavorites();
+  const count = countStorage.get();
+  const favorites = favoritesStorage.get();
 
   React.useEffect(() => {
     async function _get() {
@@ -25,7 +25,7 @@ export default function AllView() {
           <PokemonLink
             key={pokemon.id}
             pokemon={pokemon}
-            count={party[pokemon.id] || 0}
+            count={count[pokemon.id] || 0}
             isFavorite={favorites[pokemon.id]}
           />
         ))}
