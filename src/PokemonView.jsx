@@ -5,7 +5,7 @@ import { getPokemon } from "./api";
 import { Heading } from "./shared";
 import { PokemonLink } from "./PokemonLink";
 import View from "./View";
-import { getFavorites, notesStorage } from "./local-storage";
+import { favoritesStorage, notesStorage } from "./local-storage";
 
 export default function PokemonView() {
   const { id } = useParams();
@@ -23,7 +23,7 @@ export default function PokemonView() {
   }, [id]);
 
   React.useEffect(() => {
-    setIsFavorite(getFavorites()[id]);
+    setIsFavorite(favoritesStorage.get()[id]);
   }, [id]);
 
   React.useEffect(() => {
@@ -35,19 +35,20 @@ export default function PokemonView() {
   const count = party[pokemon.id];
 
   function toggleFavorite() {
-    const favorites = getFavorites();
+    const favorites = favoritesStorage.get();
     if (favorites[id] == true) {
       delete favorites[id];
     } else {
       favorites[id] = true;
     }
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    favoritesStorage.set(favorites);
     setIsFavorite(favorites[id]);
   }
 
   function handleSave(event) {
     event.preventDefault();
-    notesStorage.set({ [id]: notes });
+    notesStorage.set({ [id]: notes }, "merge");
   }
 
   return (

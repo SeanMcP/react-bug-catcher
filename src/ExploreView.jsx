@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useAllPokemon } from "./api";
 import View from "./View";
 import { Pill } from "./shared";
+import { favoritesStorage } from "./local-storage";
 
 export default function ExploreView() {
   const [pokemon, setPokemon] = React.useState(null);
@@ -15,6 +16,7 @@ export default function ExploreView() {
 
   const [berries, setBerries] = useCookie("berries");
   const [balls, setBalls] = useCookie("balls");
+  const favorites = favoritesStorage.get();
 
   function tossBerry() {
     setBerries(berries - 1);
@@ -46,7 +48,11 @@ export default function ExploreView() {
     const rarity = getRarity();
     const options = allPokemon.filter((pokemon) => pokemon.rarity === rarity);
     const chosen = options[Math.floor(Math.random() * options.length)];
-    setMessage(`A wild ${chosen.name} has appeared!`);
+    setMessage(
+      favorites[chosen.id]
+        ? `One of your favorites has appeared: a wild ${chosen.name}!`
+        : `A wild ${chosen.name} has appeared!`
+    );
     setPokemon(chosen);
   }
 

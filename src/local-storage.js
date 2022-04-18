@@ -3,12 +3,16 @@ function storageFactory(key) {
     get() {
       return JSON.parse(localStorage.getItem(key) || "{}");
     },
-    set(value) {
-      localStorage.setItem(key, JSON.stringify({ ...this.get(), ...value }));
+    set(value, type) {
+      localStorage.setItem(
+        key,
+        JSON.stringify(type === "merge" ? { ...this.get(), ...value } : value)
+      );
     },
   };
 }
 
+export const favoritesStorage = storageFactory("favorites");
 export const notesStorage = storageFactory("notes");
 
 export function getFavorites() {
