@@ -22,3 +22,13 @@ code {
   white-space: nowrap;
   width: 1px;
 }
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}

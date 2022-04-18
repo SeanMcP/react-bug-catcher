@@ -208,7 +208,6 @@ const $Button = styled.button`
   border: 0;
   border-radius: 48px;
   display: inline-flex;
-  font: inherit;
   justify-content: center;
   height: 48px;
   position: relative;
