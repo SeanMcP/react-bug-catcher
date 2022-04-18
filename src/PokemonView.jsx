@@ -52,12 +52,10 @@ export default function PokemonView() {
 
   return (
     <View title={pokemon.name}>
-      <$Header>
-        <Heading>
-          {pokemon.name}
-          {isFavorite ? "*" : ""}
-        </Heading>
-      </$Header>
+      <Heading>
+        {pokemon.name}
+        {isFavorite ? "*" : ""}
+      </Heading>
       <$ImagesContainer>
         {pokemon.previous.length > 0 ? (
           <PokemonLink
@@ -106,12 +104,6 @@ export default function PokemonView() {
     </View>
   );
 }
-
-const $Header = styled.header`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`;
 
 const $ImagesContainer = styled.div`
   align-items: center;
