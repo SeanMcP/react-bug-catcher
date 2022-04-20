@@ -1,6 +1,7 @@
 import React from "react";
 
 async function query(name) {
+  console.info("[api > query]", name);
   const response = await fetch("/api?query=" + name);
   const data = await response.json();
   return data;
