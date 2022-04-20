@@ -19,7 +19,8 @@ export default function ExploreView() {
   const favorites = favoritesStorage.get();
 
   function tossBerry() {
-    setBerries(berries - 1);
+    const nextBerries = berries - 1;
+    setBerries(nextBerries);
 
     if (pokemon) {
       if (Math.random() > 0.25) {
@@ -34,9 +35,9 @@ export default function ExploreView() {
         encounterPokemon();
       } else {
         setMessage(
-          berries
-            ? `No Pokemon appeared. You have ${berries} berr${
-                berries === 1 ? "y" : "ies"
+          nextBerries
+            ? `No Pokemon appeared. You have ${nextBerries} berr${
+                nextBerries === 1 ? "y" : "ies"
               } left.`
             : "Uh oh, you're all out of berries! Try coming back later."
         );
